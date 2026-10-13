@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: pulso-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pulso_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - pulso_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d pulso_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pulso_postgres_data:
+    name: pulso_postgres_data
