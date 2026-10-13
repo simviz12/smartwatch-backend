@@ -26,8 +26,9 @@ export interface SafetyCheckResult {
 }
 
 export interface ChatStreamChunk {
-  type: 'token' | 'safety' | 'done' | 'error';
+  type: 'token' | 'sentence' | 'safety' | 'done' | 'error';
   token?: string;
+  sentence?: string;
   riskLevel?: RiskLevel;
   crisisResources?: CrisisResource[];
   error?: string;
