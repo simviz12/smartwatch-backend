@@ -30,6 +30,32 @@ paths:
                     example: up
       tags:
         - Health
+  /chat/stream:
+    post:
+      operationId: ChatController_streamChat
+      summary: SSE Stream for conversational emotional support with crisis safety
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SendChatDto"
+      responses:
+        "200":
+          description: ""
+      tags:
+        - Chat
+  /v1/installs/me:
+    delete:
+      operationId: InstallController_deleteInstall
+      summary: Delete install record and purge server counters
+      parameters: []
+      responses:
+        "200":
+          description: ""
+      tags:
+        - Install & Privacy
 info:
   title: Pulso API
   description: Pulso Wellness & Emotional Support Chat API
@@ -40,4 +66,7 @@ tags:
     description: System and database health diagnostics
 servers: []
 components:
-  schemas: {}
+  schemas:
+    SendChatDto:
+      type: object
+      properties: {}
