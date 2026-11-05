@@ -71,6 +71,41 @@ Swagger UI documentation: `http://localhost:3000/docs`
 
 ---
 
+## Autenticación (inicio de sesión)
+
+| Método | Ruta | Descripción |
+|---|---|---|
+| `POST` | `/v1/auth/register` | `{ name, email, password }` → crea la cuenta y devuelve `{ token, user }` |
+| `POST` | `/v1/auth/login` | `{ email, password }` → `{ token, user }` |
+| `GET` | `/v1/auth/me` | Usuario actual. Cabecera `Authorization: Bearer <token>` |
+
+- Contraseñas guardadas con **bcrypt** (nunca en texto plano); el token es un **JWT** válido 30 días.
+- Correo y contraseña incorrectos devuelven el mismo error, para no revelar qué cuentas existen.
+- Si defines `DEMO_EMAIL` y `DEMO_PASSWORD`, al arrancar se crea esa cuenta demo (útil para revisores).
+- Documentación interactiva en `/docs` (Swagger).
+
+---
+
+## Despliegue en Render (gratis)
+
+El archivo [`render.yaml`](render.yaml) crea la base de datos PostgreSQL y el servicio web automáticamente.
+
+1. Sube este repositorio a GitHub (rama `main`).
+2. Entra a [render.com](https://render.com) e inicia sesión con GitHub.
+3. **New › Blueprint** y elige el repositorio `smartwatch-backend`.
+4. Render pedirá un valor para **`DEMO_PASSWORD`**: escribe la contraseña de la cuenta demo (mínimo 8 caracteres).
+5. Pulsa **Apply**. Render crea `pulso-db` y `pulso-api`, compila, aplica las migraciones y arranca.
+6. Cuando termine, copia la URL del servicio (por ejemplo `https://pulso-api.onrender.com`) y comprueba:
+   - `https://<tu-url>/health` → `{"status":"ok", "database":"up", …}`
+   - `https://<tu-url>/docs` → Swagger.
+7. En la app del celular, pon esa URL en `local.properties` (`PULSO_API_URL=https://<tu-url>`) o como *secret* `PULSO_API_URL` del repositorio del frontend, y vuelve a generar el APK.
+
+**Cuenta para el profesor:** `profesor@pulso.app` con la contraseña que pusiste en `DEMO_PASSWORD`. También puede crear su propia cuenta desde la app.
+
+> Plan gratuito: el servicio se duerme tras ~15 min sin uso y tarda ~1 minuto en despertar con la primera petición (la app muestra un aviso mientras tanto). La base de datos gratuita de Render caduca a los 30 días; después hay que crear una nueva o pasar a un plan de pago.
+
+---
+
 ## Testing & Quality
 
 - **Linting:**

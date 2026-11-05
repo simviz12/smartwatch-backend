@@ -1,5 +1,6 @@
 import { plainToInstance } from 'class-transformer';
 import {
+  IsOptional,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -29,17 +30,32 @@ export class EnvironmentVariables {
   @MinLength(16)
   JWT_SECRET!: string;
 
+  // The chat module uses a mock LLM today, so these are optional (keeps deployment simple).
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  LLM_API_KEY!: string;
+  LLM_API_KEY?: string;
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  LLM_CHAT_MODEL!: string;
+  LLM_CHAT_MODEL: string = 'gemini-2.5-flash';
 
+  @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  LLM_CLASSIFIER_MODEL!: string;
+  LLM_CLASSIFIER_MODEL: string = 'gemini-2.5-flash';
+
+  // Optional demo account created at startup (handy for a reviewer).
+  @IsOptional()
+  @IsString()
+  DEMO_EMAIL?: string;
+
+  @IsOptional()
+  @IsString()
+  @MinLength(8)
+  DEMO_PASSWORD?: string;
+
+  @IsOptional()
+  @IsString()
+  DEMO_NAME?: string;
 }
 
 export function validateConfig(

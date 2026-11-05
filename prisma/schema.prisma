@@ -13,3 +13,13 @@ model AppHealth {
   status    String   @default("ok")
   checkedAt DateTime @default(now())
 }
+
+// Pulso account used to sign in from the phone app.
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+  lastLoginAt  DateTime?
+}

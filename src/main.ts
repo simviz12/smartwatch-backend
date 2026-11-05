@@ -24,6 +24,9 @@ async function bootstrap() {
     }),
   );
 
+  // The phone app and Swagger UI call the API from other origins.
+  app.enableCors();
+
   // Global exception filter
   app.useGlobalFilters(new GlobalExceptionFilter());
 
@@ -33,15 +36,19 @@ async function bootstrap() {
     .setDescription('Pulso Wellness & Emotional Support Chat API')
     .setVersion('0.1.0')
     .addTag('Health', 'System and database health diagnostics')
+    .addTag('Auth', 'Sign up, sign in and current user')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('docs', app, document);
 
-  // Export openapi.yaml
-  const yamlString = yaml.stringify(document);
-  const openapiPath = path.resolve(process.cwd(), 'openapi.yaml');
-  fs.writeFileSync(openapiPath, yamlString, 'utf8');
+  // Export openapi.yaml during development only (production filesystems may be read-only).
+  if (config.NODE_ENV !== 'production') {
+    const yamlString = yaml.stringify(document);
+    const openapiPath = path.resolve(process.cwd(), 'openapi.yaml');
+    fs.writeFileSync(openapiPath, yamlString, 'utf8');
+  }
 
   // Listen on 0.0.0.0
   const port = config.PORT || 3000;
