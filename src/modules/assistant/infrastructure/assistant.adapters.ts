@@ -28,7 +28,8 @@ export class GeminiAssistantAdapter implements AssistantLlmPort {
         body: JSON.stringify({
           systemInstruction: { parts: [{ text: systemPrompt }] },
           contents,
-          generationConfig: { temperature: 0.7, maxOutputTokens: 400 },
+          // Short, warm replies: no hidden reasoning tokens eating the output budget.
+          generationConfig: { temperature: 0.7, maxOutputTokens: 800, thinkingConfig: { thinkingBudget: 0 } },
         }),
         signal: controller.signal,
       });
