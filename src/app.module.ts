@@ -3,11 +3,12 @@ import { HealthModule } from './modules/health/health.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { InstallModule } from './modules/install/install.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { AssistantModule } from './modules/assistant/assistant.module';
 import { PrivacyLogger } from './shared/logging/privacy-logger.service';
 import { HttpLoggingMiddleware } from './shared/logging/http-logging.middleware';
 
 @Module({
-  imports: [HealthModule, ChatModule, InstallModule, AuthModule],
+  imports: [HealthModule, ChatModule, InstallModule, AuthModule, AssistantModule],
   providers: [PrivacyLogger],
   exports: [PrivacyLogger],
 })
