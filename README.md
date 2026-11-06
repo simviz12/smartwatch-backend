@@ -1,5 +1,9 @@
 # Pulso Backend API
 
+> 📘 **Guía completa de despliegue (Render + APK):** [smartwatch-frontend/docs/DESPLIEGUE.md](https://github.com/simviz12/smartwatch-frontend/blob/main/docs/DESPLIEGUE.md)
+>
+> ⬇️ **Descargar la app:** [celular](https://github.com/simviz12/smartwatch-frontend/releases/latest/download/pulso-celular.apk) · [reloj](https://github.com/simviz12/smartwatch-frontend/releases/latest/download/pulso-reloj.apk) · [esfera](https://github.com/simviz12/smartwatch-frontend/releases/latest/download/pulso-esfera-reloj.apk)
+
 Pulso is a wellness backend platform featuring an emotional-support assistant powered by an LLM, developed under Clean Architecture principles using NestJS, TypeScript, PostgreSQL, and Prisma.
 
 ---
